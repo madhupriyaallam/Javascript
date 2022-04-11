@@ -1,0 +1,42 @@
+7. async & await
+One of the powerful aspects of JavaScript is its asynchronicity. This means that many functions that may be long-running or time-consuming can return a Promise and not block execution.
+
+const url = 'https://the-one-api.dev/v2/book'
+let prom = fetch(url)
+prom // Promise {<pending>}
+
+// wait a bit
+prom // Promise {<fullfilled>: Response}, if no errors
+// or
+prom // Promise {<rejected>: Error message}, if any error
+Here the call to fetch returns a Promise that has the status 'pending' when created. Soon, when the API returns the response, it transitions into a 'fulfilled' state, and the Response that it wraps can be accessed. In the Promises world, you would do something like this to make an API call and parse the response as JSON.
+
+const url = 'https://the-one-api.dev/v2/book'
+let prom = fetch(url)
+prom // Promise {<fullfilled>: Response}
+  .then((res) => res.json())
+  .then((json) => console.log(json)) // prints response, if no errors
+  .catch((err) => console.log(err)) // prints error message, if any error
+In 2017, JavaScript announced two new keywords async and await, that make handling and working with Promises easier and more fluent. They are not a replacement for Promises; they are merely syntactic sugar on top of the powerful Promises concepts.
+
+Instead of all the code happening inside a series of 'then' functions, await makes it all look like synchronous JavaScript. As an added benefit, you can use try...catch with await instead of handling errors in 'catch' functions as you would have to if consuming Promises directly. The same code with await would look like this.
+
+const url = 'https://the-one-api.dev/v2/book'
+let res = await fetch(url) // Promise {<fullfilled>: Response} -await-> Response
+try {
+  let json = await res.json()
+  console.log(json) // prints response, if no errors
+} catch (err) {
+  console.log(err) // prints error message, if any error
+}
+The async keyword is the other side of the same coin, in that it wraps any data to be sent within a Promise. Consider the following asynchronous function for adding several numbers. In the real world, your code would be doing something much more complicated.
+
+async function sum(...nums) {
+    return nums.reduce((agg, val) => agg + val, 0)
+}
+
+sum(1, 2, 3)                    // Promise {<fulfilled>: 6}
+  .then(res => console.log(res) // prints 6
+
+let res = await sum(1, 2, 3)    // Promise {<fulfilled>: 6} -await-> 6
+console.log(res)                // prints 6
