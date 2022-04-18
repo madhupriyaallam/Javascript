@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<button class='clickButtonlocal' onclick="clickButtonFunctionLocal()">Click to increment local score</button>
+
+<div id='clickCounterlocal'></div>
+<br>
+<button class='clickButtonsession' onclick="clickCounter()">Click to increment Session score</button>
+
+<div id='clickCountersession'></div>
+<script>
+"use strict";
+function clickButtonFunctionLocal() {
+
+console.log('run');
+
+if (localStorage.getItem("clickCounterlocal") === null) {
+  localStorage.setItem("clickCounterlocal", "0");
+}
+
+var value = parseInt(localStorage.getItem("clickCounterlocal"));
+var newValue = value + 1
+localStorage.setItem("clickCounterlocal", newValue);
+
+document.getElementById("clickCounterlocal").innerHTML = newValue
+}
+function clickReset() {
+
+localStorage.setItem("clickCounter", "0");
+document.getElementById("clickCounterlocal").innerHTML = '0'
+}
+
+function clickCounter() {
+  if (sessionStorage.clickcount) {
+    sessionStorage.clickcount = Number(sessionStorage.clickcount) + 1;
+  } else {
+    sessionStorage.clickcount = 1;
+    }
+  document.getElementById("clickCountersession").innerHTML = sessionStorage.clickcount;
+}
+</script>
