@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>
+			JavaScript | Pass a function as parameter
+		</title>
+	</head>
+	
+	<body style = "text-align:center;">
+		
+		<h1 style = "color:green;" >
+			Hello
+		</h1>
+		
+		<p>
+			Welcome home
+		</p>
+		
+		<!-- Function call after clicking the button -->
+		<button onclick = "welcome_outer(welcome_inner)">
+			Click Here
+		</button>	
+		
+		<script>
+			function welcome_inner(value){
+				return 'We are excited for you being here!';
+			}
+			function welcome_outer(func){
+				alert(func());
+			}
+		</script>
+	</body>
+</html>					
+
